@@ -108,10 +108,6 @@ class WorkSpace: CanvasController {
         canvas.add(moon)
     }
     
-    func click() {
-        yesButton(on: false) // remove button
-    }
-    
     func frame1() {
         print("delay ", delay, " at start of frame one")
         // initializing animation condition
@@ -232,17 +228,19 @@ class WorkSpace: CanvasController {
     
     func playAudio(audioClip: String) {
         // audio
-        print("inside audio")
+        print("inside audio, playing ", audioClip)
         ap = AudioPlayer(audioClip)
         self.ap?.volume = 1.0
         self.ap?.loops = false
         self.ap?.play()
         if (ap?.playing==false) {
             print("audio failure")
+        } else {
+            print(audioClip, " duration ", ap?.duration)
         }
     }
     
-    func earthSpeaks(audioClip: String) {
+    func earthSpeaks(audioClip: String, duration: Double) {
         // mouth shape
         var mouthCenter_earth = Point(self.canvas.width*(5.7/8), self.canvas.height*0.6)
         var mouth = Circle(center: mouthCenter_earth, radius: 10)
@@ -253,17 +251,17 @@ class WorkSpace: CanvasController {
         playAudio(audioClip: audioClip)
         
         // voiceover of mouth animation
-        let a = ViewAnimation(duration:1.0) {
+        let a = ViewAnimation(duration:duration/5.0) {
             mouth.transform = Transform.makeScale(0.1, 0.1)
         }
-        a.repeatCount = 2.5
+        a.repeatCount = duration - 1
         a.autoreverses = true
         a.animate()
     }
     
-    func moonSpeaks(audioClip: String) {
+    func moonSpeaks(audioClip: String, duration: Double) {
         // mouth shape
-        var mouthCenter_moon = Point(self.canvas.width*(1.75/8), self.canvas.height*0.7)
+        var mouthCenter_moon = Point(self.canvas.width*(1.75/8), self.canvas.height*0.68)
         var mouth = Circle(center: mouthCenter_moon, radius: 5)
         mouth.fillColor = black
         self.canvas.add(mouth)
@@ -274,7 +272,7 @@ class WorkSpace: CanvasController {
         let a = ViewAnimation(duration:1.0) {
             mouth.transform = Transform.makeScale(0.1, 0.1)
         }
-        a.repeatCount = 2.5
+        a.repeatCount = duration
         a.autoreverses = true
         a.animate()
         
@@ -288,7 +286,7 @@ class WorkSpace: CanvasController {
         
         delay = 4.2
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.earthSpeaks(audioClip: "Media/Earth_intro.mp3")
+            self.earthSpeaks(audioClip: "Media/Earth_intro.mp3", duration: 5.04)
         }
         
         delay+=5.0
@@ -310,10 +308,9 @@ class WorkSpace: CanvasController {
             // enable clicking action
             self.canvas.addTapGestureRecognizer {
                 locations, center, state in
-                self.moonAnimation = 1
-                //                print("tap tap ", self.moonAnimation)
+                
+                self.moonAnimation += 1 //   self.moonAnimation += 1
                 print(self.delay)
-                self.click()
                 if (self.moonAnimation == 1) {
                     // if user clicks, remove yesButton and start animation of moon
                     self.yesButton(on:false)
@@ -352,11 +349,55 @@ class WorkSpace: CanvasController {
         print("frame5 starts")
         var newDelay = 0.0
         DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.earthSpeaks(audioClip: "Media/HowRU.mp3")
+            self.earthSpeaks(audioClip: "Media/HowRU.mp3", duration: 2)
         }
-        newDelay+=3.0
+        newDelay+=2.0
         DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.moonSpeaks(audioClip: "Media/NotMuch.mp3")
+            self.moonSpeaks(audioClip: "Media/NotMuch.mp3", duration: 4)
+        }
+        newDelay+=4.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 2)
+        }
+        newDelay+=2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.earthSpeaks(audioClip: "Media/intro_team.mp3", duration:8.5)
+        }
+        newDelay+=8.5
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 2)
+            print(2)
+        }
+        newDelay+=2
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.earthSpeaks(audioClip: "Media/perm_shadowed.mp3", duration: 12)
+        }
+        newDelay+=12
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 2)
+            print(3)
+        }
+        newDelay+=2
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.earthSpeaks(audioClip: "Media/reservoir.mp3", duration: 7)
+        }
+        newDelay+=7
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 2)
+            print(4)
+        }
+        newDelay+=2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.earthSpeaks(audioClip: "Media/rocket_fuels.mp3", duration: 19)
+        }
+        newDelay+=19
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 1)
+            print(5)
+        }
+        newDelay+=1
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.earthSpeaks(audioClip: "Media/excited.mp3", duration: 2.6)
         }
         
         
