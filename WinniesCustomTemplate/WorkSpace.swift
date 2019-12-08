@@ -108,6 +108,13 @@ class WorkSpace: CanvasController {
         canvas.add(moon)
     }
     
+    func soWhatBanner(on: Bool) -> Image {
+        var so = Image("Media/so_what.png")
+        so?.frame = Rect(self.canvas.width*(1.0/8), self.canvas.height*0.2, so!.width, so!.height)
+        canvas.add(so)
+        return so!
+        
+    }
     func frame1() {
         print("delay ", delay, " at start of frame one")
         // initializing animation condition
@@ -304,6 +311,7 @@ class WorkSpace: CanvasController {
             a.repeats = true
             a.autoreverses = true
             a.animate()
+            print("anime", a.duration)
             
             // enable clicking action
             self.canvas.addTapGestureRecognizer {
@@ -361,47 +369,56 @@ class WorkSpace: CanvasController {
         }
         newDelay+=2.0
         DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.earthSpeaks(audioClip: "Media/intro_team.mp3", duration:8.5)
+            self.earthSpeaks(audioClip: "Media/intro_team.mp3", duration:8.6)
         }
-        newDelay+=8.5
+        newDelay+=8.6
         DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
             self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 2)
             print(2)
         }
         newDelay+=2
         DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.earthSpeaks(audioClip: "Media/perm_shadowed.mp3", duration: 12)
+            self.earthSpeaks(audioClip: "Media/perm_shadowed.mp3", duration: 12.5)
         }
-        newDelay+=12
+        newDelay+=12.5
         DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
             self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 2)
-            print(3)
         }
         newDelay+=2
         DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.earthSpeaks(audioClip: "Media/reservoir.mp3", duration: 7)
+            self.earthSpeaks(audioClip: "Media/reservoir.mp3", duration: 6.6)
         }
-        newDelay+=7
-        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 2)
-            print(4)
-        }
-        newDelay+=2.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.earthSpeaks(audioClip: "Media/rocket_fuels.mp3", duration: 19)
-        }
-        newDelay+=19
-        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 1)
-            print(5)
-        }
-        newDelay+=1
-        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
-            self.earthSpeaks(audioClip: "Media/excited.mp3", duration: 2.6)
-        }
+        newDelay+=6.6
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 3)
+        }
+        newDelay+=3
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+            self.earthSpeaks(audioClip: "Media/rocket_fuels.mp3", duration: 19.5)
+            newDelay+=19.5
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+                self.moonSpeaks(audioClip: "Media/sowhat.mp3", duration: 3)
+            }
+            newDelay+=3
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + newDelay) {
+                self.earthSpeaks(audioClip: "Media/excited.mp3", duration: 2.6)
+            }
+//            frame6()
+            
+        }
+//        func frame6() {
+//            var ltb = Image("Media/LTB2021.png")
+//            ltb?.frame = Rect(0, 0, self.canvas.width, canvas.height)
+//            canvas.add(ltb)
+//        }
         
     }
+    
+    
     
 }
 
